@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In The Vhen | Portfolio</title>
+    
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif']
+                    },
+                    colors: {
+                        brand: '#3B82F6', /* Electric Blue */
+                        brandDark: '#2563EB',
+                        darkBg: '#080808',
+                        cardBg: '#121212',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Base Smoothness & Custom Selection */
+        html { scroll-behavior: smooth; }
+        ::selection { background: #3B82F6; color: white; }
+        body { transition: background-color 0.4s ease, color 0.4s ease; overflow-x: hidden; }
+
+        /* Premium Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+        .dark .glass {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Nav Link Hover */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -4px; left: 0; background-color: #3B82F6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* Floating Animations for Hero Images */
+        .animate-float-slow { animation: float 8s ease-in-out infinite; }
+        .animate-float-fast { animation: float 5s ease-in-out infinite reverse; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Project Card Hover Effects */
+        .proj-card { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .proj-card:hover { transform: translateY(-10px); border-color: #3B82F6; box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15); }
+        
+        /* Timeline Dots */
+        .timeline-dot {
+            position: relative;
+        }
+        .timeline-dot::before {
+            content: ''; position: absolute; left: -33px; top: 6px;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: #3B82F6; border: 3px solid var(--bg-color, #080808);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        html:not(.dark) .timeline-dot::before { border-color: #f9fafb; }
+
+        /* Luxury Line-Only Inputs */
+        .line-input {
+            width: 100%; background: transparent; border: none; border-bottom: 2px solid rgba(156, 163, 175, 0.3);
+            padding: 12px 0; font-size: 1rem; transition: border-color 0.3s ease; outline: none;
+        }
+        .line-input:focus { border-bottom-color: #3B82F6; }
+        .dark .line-input { border-bottom-color: rgba(75, 85, 99, 0.5); color: white; }
+        .dark .line-input:focus { border-bottom-color: #3B82F6; }
+
+        /* Chatbot Glow */
+        #chatbot-toggle img { filter: drop-shadow(0 15px 30px rgba(0,0,0,0.2)); transition: 0.4s ease; }
+        .dark #chatbot-toggle img { filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6)); }
+        #chatbot-toggle:hover img { transform: translateY(-10px) scale(1.05); filter: drop-shadow(0 20px 40px rgba(59, 130, 246, 0.5)); }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* About Section Slider */
+        .about-slide {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .about-slide.hidden-slide {
+            opacity: 0;
+            transform: translateX(30px);
+            pointer-events: none;
+            position: absolute;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-darkBg dark:text-gray-100 antialiased">
+
+    <!-- FLOATING NAVIGATION -->
+    <nav class="fixed top-0 w-full z-50 glass transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-heading font-black text-2xl tracking-tighter">VINCENT<span class="text-brand">.</span></div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-gray-500 dark:text-gray-400">
+                <a href="#home" class="nav-link hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
+                <a href="#projects" class="nav-link hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
+                <a href="#experience" class="nav-link hover:text-gray-900 dark:hover:text-white transition-colors">Experience</a>
+                <a href="#about" class="nav-link hover:text-gray-900 dark:hover:text-white transition-colors">About</a>
+                <a href="#contact" class="nav-link hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <!-- Theme Toggle -->
+            <button id="theme-btn" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+                <svg id="icon-sun" class="w-5 h-5 text-yellow-500 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <svg id="icon-moon" class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (High-End Composite Layout) -->
+    <header id="home" class="pt-32 pb-20 md:pt-40 md:pb-32 px-6 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-16 min-h-screen">
+        
+        <!-- Left: Typography -->
+        <div class="flex-1 text-center md:text-left reveal">
+            <p class="text-brand font-bold tracking-[0.2em] uppercase text-sm mb-4">Frontend Developer & IT Student</p>
+            <h1 class="font-heading font-black text-5xl md:text-7xl leading-[1.1] tracking-tight mb-6">
+                Hi, I'm <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-cyan-400">Vincent Taculin</span>
+            </h1>
+            <p class="text-gray-500 dark:text-gray-400 text-lg md:text-xl font-light leading-relaxed max-w-lg mx-auto md:mx-0 mb-10">
+                I build immersive, scalable, and beautifully designed digital experiences using modern web technologies.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a href="#projects" class="px-8 py-4 bg-brand hover:bg-brandDark text-white rounded-full font-bold transition-all shadow-[0_10px_20px_rgba(59,130,246,0.3)] hover:-translate-y-1">View My Work</a>
+                <a href="#contact" class="px-8 py-4 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-full font-bold transition-all hover:-translate-y-1">Contact Me</a>
+            </div>
+        </div>
+
+        <!-- Right: Dynamic Image Composite -->
+        <div class="flex-1 relative w-full max-w-[400px] md:max-w-full reveal mt-10 md:mt-0">
+            <!-- Main Portrait -->
+            <div class="relative z-10 w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800">
+                <img src="vhen2.jpg" alt="Vincent Taculin" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Floating Badge 1: School (Top Right) -->
+            <div class="absolute -top-6 -right-6 md:-right-12 z-20 glass p-4 rounded-3xl animate-float-slow flex flex-col items-center gap-2">
+                <div class="w-14 h-14 rounded-full overflow-hidden bg-white p-1 shadow-md">
+                    <img src="spcd.png" alt="SPCD Logo" class="w-full h-full object-cover rounded-full">
+                </div>
+                <div class="text-center">
+                    <p class="text-[10px] font-bold text-gray-900 dark:text-white uppercase tracking-wider">IT Scholar</p>
+                    <p class="text-[9px] text-brand font-semibold">Samsonian</p>
+                </div>
+            </div>
+
+            <!-- Abstract Background Glow -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-brand/20 blur-[100px] rounded-full z-0 pointer-events-none"></div>
+        </div>
+
+    </header>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="font-heading text-3xl md:text-5xl font-black mb-4 reveal">Featured Projects</h2>
+        <p class="text-gray-500 dark:text-gray-400 mb-16 reveal text-lg">A showcase of my recent architectural and frontend developments.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
+            <!-- Project 1 -->
+            <div class="proj-card bg-white dark:bg-cardBg p-8 rounded-3xl border border-gray-200 dark:border-gray-800">
+                <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 text-brand">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-3 font-heading">Student Portal System (On-going)</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">An information portal that allows admins and students to manage enrollment, update records, and handle billing efficiently.</p>
+                <span class="text-xs font-bold text-brand uppercase tracking-widest">Full-Stack</span>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="proj-card bg-white dark:bg-cardBg p-8 rounded-3xl border border-gray-200 dark:border-gray-800">
+                <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 text-purple-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-3 font-heading">Inventory Management System (On-going)</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">A Python-based GUI project that automates inventory tracking and management.</p>
+                <span class="text-xs font-bold text-purple-500 uppercase tracking-widest">Python / Sqlite3</span>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="proj-card bg-white dark:bg-cardBg p-8 rounded-3xl border border-gray-200 dark:border-gray-800">
+                <div class="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center mb-6 text-pink-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-3 font-heading">Interactive Web Development</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">Creating engaging and responsive web experiences with modern technologies and design principles.</p>
+                <span class="text-xs font-bold text-pink-500 uppercase tracking-widest">Frontend / UI</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORK EXPERIENCE & EDUCATION SECTION -->
+    <section id="experience" class="py-24 px-6 max-w-4xl mx-auto reveal">
+        <h2 class="font-heading text-3xl md:text-5xl font-black mb-16 text-center">My Journey</h2>
+        
+        <div class="relative border-l-2 border-gray-200 dark:border-gray-800 ml-4 md:ml-10 space-y-12">
+            
+            <!-- Item 1 -->
+            <div class="timeline-dot pl-8">
+                <span class="text-xs font-bold text-brand uppercase tracking-widest mb-1 block">2026</span>
+                <h3 class="text-2xl font-bold dark:text-white font-heading">Software and Web Development</h3>
+                <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm leading-relaxed">Exploring the intersection of software engineering and web development, focusing on creating seamless user experiences.</p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="timeline-dot pl-8">
+                <span class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 block">2025</span>
+                <h3 class="text-2xl font-bold dark:text-white font-heading">Information Technology Student</h3>
+                <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-300 mt-1">Samson Polytechnic College of Davao</h4>
+                <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm leading-relaxed">Pursuing a degree in IT. Leading collaborative projects including portal systems and inventory management GUIs. Honing skills in database management and software engineering.</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="timeline-dot pl-8">
+                <span class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 block">2024</span>
+                <h3 class="text-2xl font-bold dark:text-white font-heading">Start of a working student</h3>
+                <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm leading-relaxed">Beginning my journey as a working student in a government agency, balancing academic responsibilities with real-world application of my skills.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PERSONAL DETAILS / ABOUT SECTION WITH SLIDER -->
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto reveal bg-gray-100 dark:bg-cardBg rounded-[3rem] my-10 relative overflow-hidden">
+        
+        <!-- Slide 1: Professional Philosophy -->
+        <div id="about-slide-1" class="about-slide flex flex-col md:flex-row items-center gap-16 px-6 md:px-12 py-10">
+            <div class="w-full md:w-5/12 relative">
+                <div class="aspect-square rounded-[2rem] overflow-hidden filter grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl">
+                    <img src="vhen2.jpg" alt="Vincent Portrait" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 -right-6 w-32 h-32 border-4 border-brand rounded-full z-0 pointer-events-none"></div>
+                <div class="absolute -top-6 -left-6 w-16 h-16 bg-brand/20 backdrop-blur-xl rounded-full z-20 pointer-events-none"></div>
+            </div>
+
+            <div class="w-full md:w-7/12">
+                <h2 class="font-heading text-3xl md:text-5xl font-black mb-6 dark:text-white">Beyond the Code.</h2>
+                <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
+                    I’m an IT student at <span class="font-semibold text-gray-900 dark:text-white">Samson Polytechnic College of Davao</span> with a fierce passion for full-stack web development. I thrive on bridging the gap between complex backend logic and beautiful, accessible user interfaces.
+                </p>
+                <div class="flex flex-wrap gap-3 mt-8">
+                    <span class="px-4 py-2 bg-white dark:bg-darkBg border border-gray-200 dark:border-gray-800 rounded-full text-xs font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">HTML/CSS</span>
+                    <span class="px-4 py-2 bg-white dark:bg-darkBg border border-gray-200 dark:border-gray-800 rounded-full text-xs font-bold uppercase tracking-widest text-brand">JavaScript</span>
+                    <span class="px-4 py-2 bg-white dark:bg-darkBg border border-gray-200 dark:border-gray-800 rounded-full text-xs font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">Python</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Personal Details -->
+        <div id="about-slide-2" class="about-slide hidden-slide flex flex-col md:flex-row items-center gap-16 px-6 md:px-12 py-10">
+            <div class="w-full md:w-5/12 relative">
+                <div class="aspect-square rounded-[2rem] overflow-hidden bg-brand/10 flex items-center justify-center border-2 border-brand/20 shadow-2xl">
+                <img src="vhen.jpeg" alt="Vincent Personal" class="w-full h-full object-cover opacity-50 blur-[2px]">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                         <span class="text-brand font-black text-8xl opacity-20"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full md:w-7/12">
+                <h2 class="font-heading text-3xl md:text-5xl font-black mb-8 dark:text-white">Personal Profile.</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-gray-600 dark:text-gray-300">
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brand mb-1">Full Name</p>
+                        <p class="text-lg font-semibold text-gray-900 dark:text-white">Vincent Vhen Taculin</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brand mb-1">Age</p>
+                        <p class="text-lg font-semibold text-gray-900 dark:text-white">26 Years Old</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brand mb-1">Location</p>
+                        <p class="text-lg font-semibold text-gray-900 dark:text-white">Davao City, Philippines</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brand mb-1">Contact Email</p>
+                        <p class="text-lg font-semibold text-gray-900 dark:text-white">vtaculin@gmail.com</p>
+                    </div>
+                </div>
+                <div class="mt-10 p-6 glass rounded-2xl border-brand/20 border">
+                    <p class="italic text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+                        "Dedicated to continuous learning and mastering the art of digital problem solving. When I'm not coding, you can find me going to the gym or exploring new sports to stay active and inspired."
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Controls -->
+        <div class="absolute bottom-10 right-10 flex gap-4 z-30">
+            <button id="about-prev" class="w-12 h-12 rounded-full glass border border-brand/20 flex items-center justify-center text-brand transition-all hover:scale-110 opacity-30 cursor-not-allowed" disabled>
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button id="about-next" class="w-12 h-12 rounded-full bg-brand text-white flex items-center justify-center shadow-lg transition-all hover:scale-110 hover:bg-brandDark">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-32 px-6 max-w-3xl mx-auto reveal text-center">
+        <h2 class="font-heading text-4xl md:text-5xl font-black mb-4">Let's Connect.</h2>
+        <p class="text-gray-500 dark:text-gray-400 mb-12 text-lg font-light">Open for freelance opportunities and collaborations.</p>
+        
+        <form class="flex flex-col gap-8 text-left">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <input type="text" placeholder="Your Name" required class="line-input">
+                <input type="email" placeholder="Email Address" required class="line-input">
+            </div>
+            <input type="text" placeholder="Tell me about your project..." required class="line-input pb-8">
+            
+            <button type="submit" class="self-center mt-8 px-12 py-4 bg-brand hover:bg-brandDark text-white font-bold rounded-full transition-all shadow-[0_10px_20px_rgba(59,130,246,0.3)] hover:-translate-y-1">
+                Send Message
+            </button>
+        </form>
+    </section>
+
+    <!-- FLOATING CHATBOT WIDGET -->
+    <div id="chatbot-toggle" class="fixed bottom-8 right-8 z-[2000] cursor-pointer group">
+        <div class="absolute inset-0 bg-brand rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity animate-pulse"></div>
+        <img src="chatbot_vhen.png" alt="Assistant" class="w-20 md:w-24 h-auto relative z-10">
+    </div>
+
+    <!-- HIGH-END iOS STYLE CHAT WINDOW -->
+    <div id="chat-window" class="fixed bottom-[110px] right-8 w-[350px] max-w-[calc(100vw-40px)] h-[500px] glass rounded-3xl z-[2000] hidden flex-col overflow-hidden shadow-2xl transition-all duration-300 transform translate-y-4 opacity-0" style="transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+        
+        <!-- Chat Header -->
+        <div class="p-5 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center bg-white/50 dark:bg-black/50">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                    <img src="chatbot_vhen.png" alt="Assistant" class="w-8 h-8 object-contain translate-y-1">
+                </div>
+                <div>
+                    <p class="text-sm font-bold font-heading tracking-wide dark:text-white">Vincent's AI</p>
+                    <p class="text-[9px] text-brand font-bold uppercase tracking-[0.2em] flex items-center gap-1">
+                        <span class="w-2 h-2 bg-brand rounded-full animate-pulse"></span> Online
+                    </p>
+                </div>
+            </div>
+            <button id="close-chat" class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <!-- Chat Messages -->
+        <div class="flex-1 p-5 overflow-y-auto flex flex-col gap-4 bg-gray-50/50 dark:bg-[#050505]/50" id="chat-msgs">
+            <div class="max-w-[85%] p-3.5 rounded-2xl rounded-tl-sm text-[13px] leading-relaxed bg-white dark:bg-cardBg dark:text-gray-200 shadow-sm border border-gray-100 dark:border-gray-800 self-start">
+                Hi! I'm Vincent's virtual assistant. How can I help you navigate his portfolio today?
+            </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="p-4 border-t border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-black/50 flex gap-3">
+            <input type="text" id="chat-input" placeholder="Ask a question..." class="flex-1 bg-gray-100 dark:bg-darkBg border-none dark:text-white px-4 py-3 rounded-2xl text-[13px] outline-none focus:ring-1 focus:ring-brand">
+            <button id="chat-send" class="w-11 h-11 flex items-center justify-center bg-brand text-white rounded-2xl hover:bg-brandDark transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-10 border-t border-gray-200 dark:border-gray-900">
+        <p class="text-gray-400 text-xs font-semibold tracking-widest uppercase">© 2026 Vincent Vhen Taculin. Developed with precision.</p>
+    </footer>
+
+    <script>
+        // --- THEME TOGGLE LOGIC ---
+        const themeBtn = document.getElementById('theme-btn');
+        const iconSun = document.getElementById('icon-sun');
+        const iconMoon = document.getElementById('icon-moon');
+        const htmlNode = document.documentElement;
+
+        function updateIcons() {
+            if (htmlNode.classList.contains('dark')) {
+                iconSun.classList.remove('hidden'); iconMoon.classList.add('hidden');
+            } else {
+                iconMoon.classList.remove('hidden'); iconSun.classList.add('hidden');
+            }
+        }
+        updateIcons();
+
+        themeBtn.addEventListener('click', () => {
+            htmlNode.classList.toggle('dark');
+            updateIcons();
+        });
+
+        // --- ACTIVE NAV LINK HIGHLIGHTING ---
+        const sections = document.querySelectorAll('header, section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active', 'text-brand');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active', 'text-brand');
+                }
+            });
+        });
+
+        // --- SCROLL REVEAL ANIMATIONS ---
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        reveals.forEach(el => observer.observe(el));
+
+        // --- ABOUT SECTION SLIDER LOGIC ---
+        const aboutNext = document.getElementById('about-next');
+        const aboutPrev = document.getElementById('about-prev');
+        const slide1 = document.getElementById('about-slide-1');
+        const slide2 = document.getElementById('about-slide-2');
+
+        aboutNext.addEventListener('click', () => {
+            slide1.classList.add('hidden-slide');
+            slide2.classList.remove('hidden-slide');
+            aboutNext.disabled = true;
+            aboutNext.classList.add('opacity-30', 'cursor-not-allowed');
+            aboutPrev.disabled = false;
+            aboutPrev.classList.remove('opacity-30', 'cursor-not-allowed');
+        });
+
+        aboutPrev.addEventListener('click', () => {
+            slide2.classList.add('hidden-slide');
+            slide1.classList.remove('hidden-slide');
+            aboutPrev.disabled = true;
+            aboutPrev.classList.add('opacity-30', 'cursor-not-allowed');
+            aboutNext.disabled = false;
+            aboutNext.classList.remove('opacity-30', 'cursor-not-allowed');
+        });
+
+        // --- CHATBOT WIDGET LOGIC ---
+        const toggle = document.getElementById('chatbot-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const close = document.getElementById('close-chat');
+        const input = document.getElementById('chat-input');
+        const send = document.getElementById('chat-send');
+        const chatMsgs = document.getElementById('chat-msgs');
+
+        function openChat() {
+            chatWindow.style.display = 'flex';
+            setTimeout(() => {
+                chatWindow.style.opacity = '1';
+                chatWindow.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        function closeChat() {
+            chatWindow.style.opacity = '0';
+            chatWindow.style.transform = 'translateY(16px)';
+            setTimeout(() => { chatWindow.style.display = 'none'; }, 400); 
+        }
+
+        toggle.addEventListener('click', () => {
+            if (chatWindow.style.display === 'flex') closeChat();
+            else openChat();
+        });
+        close.addEventListener('click', closeChat);
+
+        function addMsg(text, type) {
+            const div = document.createElement('div');
+            const baseClass = "max-w-[85%] p-3.5 rounded-2xl text-[13px] leading-relaxed shadow-sm ";
+            
+            if (type === 'user') {
+                div.className = baseClass + "rounded-tr-sm bg-brand text-white self-end";
+            } else {
+                div.className = baseClass + "rounded-tl-sm bg-white dark:bg-cardBg dark:text-gray-200 border border-gray-100 dark:border-gray-800 self-start";
+            }
+            
+            div.textContent = text;
+            chatMsgs.appendChild(div);
+            chatMsgs.scrollTop = chatMsgs.scrollHeight;
+        }
+
+        function handleSend() {
+            const val = input.value.trim();
+            if (!val) return;
+            addMsg(val, 'user');
+            input.value = '';
+
+            setTimeout(() => {
+                let response = "I can tell you more about Vincent's skills, projects, or his background.";
+                const lower = val.toLowerCase();
+                
+                if (lower.includes('vincent') || lower.includes('who')) {
+                    response = "Vincent is an IT student at Samson Polytechnic College of Davao and an aspiring full-stack developer!";
+                } else if (lower.includes('project') || lower.includes('work')) {
+                    response = "Vincent has built a Student Portal System, a Ticket Booking GUI in Python, and this very portfolio site.";
+                } else if (lower.includes('skill') || lower.includes('know')) {
+                    response = "He is highly skilled in HTML/CSS, JavaScript, Tailwind, Python, and UI/UX design.";
+                } else if (lower.includes('hi') || lower.includes('hello')) {
+                    response = "Hello! Welcome to Vincent's professional space. How can I assist you?";
+                }
+                
+                addMsg(response, 'bot');
+            }, 700);
+        }
+
+        send.addEventListener('click', handleSend);
+        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+    </script>
+</body>
+</html>
