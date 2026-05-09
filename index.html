@@ -30,12 +30,12 @@
     </script>
     
     <style>
-        /* Base Smoothness & Custom Selection */
+        
         html { scroll-behavior: smooth; }
         ::selection { background: #3B82F6; color: white; }
         body { transition: background-color 0.4s ease, color 0.4s ease; overflow-x: hidden; }
 
-        /* Premium Glassmorphism */
+        /* Glassmorphism */
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(16px);
@@ -58,7 +58,7 @@
         }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-        /* Floating Animations for Hero Images */
+        /* Floating Animations*/
         .animate-float-slow { animation: float 8s ease-in-out infinite; }
         .animate-float-fast { animation: float 5s ease-in-out infinite reverse; }
         @keyframes float {
@@ -135,10 +135,10 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION (High-End Composite Layout) -->
+
     <header id="home" class="pt-32 pb-20 md:pt-40 md:pb-32 px-6 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-16 min-h-screen">
         
-        <!-- Left: Typography -->
+     
         <div class="flex-1 text-center md:text-left reveal">
             <p class="text-brand font-bold tracking-[0.2em] uppercase text-sm mb-4">Frontend Developer & IT Student</p>
             <h1 class="font-heading font-black text-5xl md:text-7xl leading-[1.1] tracking-tight mb-6">
@@ -153,7 +153,7 @@
             </div>
         </div>
 
-        <!-- Right: Dynamic Image Composite -->
+     
         <div class="flex-1 relative w-full max-w-[400px] md:max-w-full reveal mt-10 md:mt-0">
             <!-- Main Portrait -->
             <div class="relative z-10 w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800">
@@ -161,7 +161,7 @@
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
             </div>
 
-            <!-- Floating Badge 1: School (Top Right) -->
+            <!-- Floating Badge: School (Top Right) -->
             <div class="absolute -top-6 -right-6 md:-right-12 z-20 glass p-4 rounded-3xl animate-float-slow flex flex-col items-center gap-2">
                 <div class="w-14 h-14 rounded-full overflow-hidden bg-white p-1 shadow-md">
                     <img src="spcd.png" alt="SPCD Logo" class="w-full h-full object-cover rounded-full">
